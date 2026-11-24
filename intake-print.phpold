@@ -1,0 +1,376 @@
+<?php
+
+$appointmentId = $_GET['appointmentId'] ?? '';
+
+function loadEnvFile() {
+    $envPath = __DIR__ . '/.env';
+    if (!file_exists($envPath)) throw new Exception('.env file not found.');
+    $envLines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($envLines as $line) {
+        $line = trim($line);
+        if ($line === '' || strpos($line, '#') === 0) continue;
+        [$key, $value] = array_pad(explode('=', $line, 2), 2, null);
+        if ($key && $value !== null) $_ENV[trim($key)] = trim($value);
+    }
+}
+
+function createPDOConnection() {
+    loadEnvFile();
+    $host = $_ENV['DB_HOST'] ?? 'localhost';
+    $db   = $_ENV['DB_NAME'] ?? '';
+    $user = $_ENV['DB_USERNAME'] ?? '';
+    $pass = $_ENV['DB_PASSWORD'] ?? '';
+    if (!$db || !$user) throw new Exception('Database credentials are missing.');
+    $dsn = "mysql:host={$host};dbname={$db};charset=utf8mb4";
+    return new PDO($dsn, $user, $pass, [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+}
+
+function safeText($value) {
+    if (is_array($value)) $value = implode(', ', array_filter($value));
+    return htmlspecialchars(trim((string) $value), ENT_QUOTES, 'UTF-8');
+}
+
+function val($payload, $key) {
+    $v = $payload[$key] ?? '';
+    if (is_array($v)) $v = implode(', ', array_filter($v));
+    $v = trim((string) $v);
+    return $v !== '' ? safeText($v) : null;
+}
+
+$submission = null;
+$payload    = [];
+$error      = null;
+
+try {
+    if (empty($appointmentId)) throw new Exception('Missing appointment ID.');
+    $pdo  = createPDOConnection();
+    $stmt = $pdo->prepare("
+        SELECT * FROM readiness_intake_submissions
+        WHERE JSON_UNQUOTE(JSON_EXTRACT(raw_payload, '$.appointmentId')) = :appointment_id
+        ORDER BY id DESC LIMIT 1
+    ");
+    $stmt->execute([':appointment_id' => $appointmentId]);
+    $submission = $stmt->fetch();
+    if (!$submission) throw new Exception('No submitted intake form found for this appointment ID.');
+    $payload = json_decode($submission['raw_payload'] ?? '{}', true);
+    if (!is_array($payload)) $payload = [];
+} catch (Exception $e) {
+    $error = $e->getMessage();
+}
+
+/* ── helper: render a two-column section grid ─────────────────────────────── */
+function section(string $title, array $fields, array $payload, bool $fullWidth = false): string {
+    $rows = '';
+    foreach ($fields as $label => $key) {
+        $v = val($payload, $key);
+        if ($v === null) continue;
+        $fw = $fullWidth ? ' full' : '';
+        $rows .= "<div class='cell{$fw}'><span class='lbl'>" . safeText($label) . "</span><span class='val'>{$v}</span></div>";
+    }
+    if ($rows === '') return '';
+    return "<div class='section'><div class='sec-head'>" . safeText($title) . "</div><div class='grid'>{$rows}</div></div>";
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Intake Summary — The Phelonpreneur Network</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+/* ── reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ── screen shell ── */
+body{
+    background:#f0ece3;
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:11.5px;
+    color:#1a1410;
+    padding:24px 16px;
+}
+
+.page{
+    max-width:960px;
+    margin:0 auto;
+    background:#fff;
+    border:1px solid #d4b96a;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 8px 32px rgba(0,0,0,.12);
+}
+
+/* ── header ── */
+.hd{
+    background:#0e0c08;
+    padding:18px 28px 16px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    border-bottom:3px solid #c9a24a;
+}
+.hd img{max-width:130px;height:auto;display:block}
+.hd-text{}
+.hd-eye{
+    font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+    color:#c9a24a;font-weight:700;margin-bottom:4px;
+}
+.hd h1{
+    font-family:Georgia,serif;font-size:19px;font-weight:400;
+    color:#f0e6cc;line-height:1.2;
+}
+.hd-meta{
+    margin-left:auto;text-align:right;flex-shrink:0;
+}
+.hd-meta span{
+    display:block;font-size:10px;color:#8a7a5e;letter-spacing:.06em;
+}
+.hd-meta strong{color:#c9a24a}
+
+/* ── toolbar (screen only) ── */
+.toolbar{
+    background:#fffaf0;
+    border-bottom:1px solid rgba(201,162,74,.2);
+    padding:10px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    flex-wrap:wrap;
+}
+.toolbar p{font-size:11px;color:#7a6a4e;line-height:1.5}
+.print-btn{
+    border:none;cursor:pointer;
+    background:linear-gradient(135deg,#9a7028,#c9a24a,#e6c98b);
+    color:#0e0c08;padding:9px 20px;border-radius:999px;
+    font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    white-space:nowrap;
+}
+
+/* ── content ── */
+.content{padding:14px 20px 18px}
+
+/* ── section ── */
+.section{margin-bottom:10px;border:1px solid rgba(201,162,74,.22);border-radius:4px;overflow:hidden}
+.sec-head{
+    background:#1a1410;color:#c9a24a;
+    font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+    padding:5px 10px;
+}
+
+/* ── two-column data grid ── */
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+}
+.cell{
+    display:flex;flex-direction:column;
+    padding:5px 10px;
+    border-bottom:1px solid rgba(201,162,74,.12);
+    border-right:1px solid rgba(201,162,74,.12);
+}
+.cell:nth-child(even){border-right:none}
+.cell.full{
+    grid-column:1/-1;
+    border-right:none;
+}
+.cell:last-child,.cell:nth-last-child(2):nth-child(odd){border-bottom:none}
+.lbl{
+    font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+    color:#9a8a6e;font-weight:600;margin-bottom:2px;
+}
+.val{font-size:11.5px;color:#1a1410;line-height:1.4}
+
+/* ── scores row ── */
+.scores{
+    display:flex;flex-wrap:wrap;gap:6px;padding:8px 10px;
+}
+.score-chip{
+    display:flex;flex-direction:column;align-items:center;
+    background:#fffaf0;border:1px solid rgba(201,162,74,.3);
+    border-radius:4px;padding:5px 10px;min-width:70px;
+}
+.score-chip .s-lbl{font-size:9px;color:#9a8a6e;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.score-chip .s-val{font-size:16px;font-weight:700;color:#c9a24a;font-family:Georgia,serif}
+
+/* ── error ── */
+.err{padding:40px;text-align:center}
+.err h2{font-size:20px;margin-bottom:10px;color:#1a1410}
+.err p{color:#7a6a4e;font-size:13px;line-height:1.7}
+
+/* ── footer ── */
+.foot{
+    border-top:1px solid rgba(201,162,74,.2);
+    background:#fffaf0;
+    padding:8px 20px;
+    font-size:9.5px;color:#9a8a6e;line-height:1.5;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;
+}
+.foot strong{color:#6b5c40}
+
+/* ── print ── */
+@media print{
+    @page{margin:.45in .4in;size:letter portrait}
+    body{background:#fff;padding:0;font-size:10.5px}
+    .page{box-shadow:none;border:none;border-radius:0;max-width:100%}
+    .toolbar{display:none}
+    .hd{background:#fff!important;border-bottom:2px solid #000;padding:10px 14px}
+    .hd h1{color:#000!important;font-size:16px}
+    .hd-eye{color:#555!important}
+    .hd-meta span{color:#555!important}
+    .hd-meta strong{color:#000!important}
+    .sec-head{background:#ddd!important;color:#000!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .section{border-color:#bbb;margin-bottom:7px}
+    .cell{padding:4px 8px}
+    .lbl{color:#555!important}
+    .val{color:#000!important}
+    .scores{padding:6px 8px;gap:4px}
+    .score-chip{background:#f5f5f5!important;border-color:#bbb!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .score-chip .s-lbl{color:#555!important}
+    .score-chip .s-val{color:#333!important;font-size:14px}
+    .foot{background:#f5f5f5!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .content{padding:10px 14px 12px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<?php if ($error): ?>
+<div class="err">
+    <h2>Intake Not Found</h2>
+    <p><?php echo safeText($error); ?></p>
+    <p>Use the print link from your confirmation email or contact The Phelonpreneur Network.</p>
+</div>
+<?php else: ?>
+
+<!-- Header -->
+<div class="hd">
+    <img src="https://phelonpreneurnetwork.com/images/logo.png" alt="The Phelonpreneur Network">
+    <div class="hd-text">
+        <p class="hd-eye">Readiness Intake — Submitted Details</p>
+        <h1>Client Intake Summary</h1>
+    </div>
+    <div class="hd-meta">
+        <span><strong>Appt ID</strong> <?php echo safeText($appointmentId); ?></span>
+        <span><strong>Sub ID</strong> <?php echo safeText($submission['id'] ?? ''); ?></span>
+        <span><?php echo safeText($submission['created_at'] ?? ''); ?></span>
+    </div>
+</div>
+
+<!-- Toolbar (screen only) -->
+<div class="toolbar">
+    <p>Review submitted intake details below. Use <strong>Print / Save PDF</strong> to archive this record.</p>
+    <button class="print-btn" onclick="window.print()">&#128438;&nbsp; Print / Save PDF</button>
+</div>
+
+<div class="content">
+
+<?php
+echo section('Contact Information', [
+    'First Name'      => 'first_name',
+    'Last Name'       => 'last_name',
+    'Email'           => 'email',
+    'Phone'           => 'phone',
+    'Best Phone'      => 'best_phone',
+    'Alternate Phone' => 'alternate_phone',
+    'Preferred Name'  => 'preferred_name',
+    'State'           => 'state',
+    'City'            => 'city',
+    'Timezone'        => 'timezone',
+    'Best Time'       => 'best_time',
+    'Text Consent'    => 'text_consent',
+], $payload);
+
+echo section('Consultation Purpose', [
+    'Consultation For'      => 'consultation_for',
+    'Directly Impacted'     => 'directly_impacted',
+    'Decision Maker'        => 'decision_maker',
+    'Other Decision Person' => 'other_decision_person',
+], $payload);
+
+echo section('Current Situation & Urgency', [
+    'Current Stage' => 'current_stage',
+    'Urgency'       => 'urgency',
+], $payload);
+
+echo section('Important Dates', [
+    'Has Important Date'   => 'has_important_date',
+    'Important Date'       => 'important_date',
+    'Deadline Type'        => 'deadline_type',
+    'Date Readiness Need'  => 'date_readiness_need',
+], $payload);
+
+echo section('Areas of Concern', [
+    'Concerns'              => 'concerns',
+    'Biggest Pressure'      => 'biggest_pressure',
+    'Helpful Consultation'  => 'helpful_consultation',
+], $payload);
+
+echo section('Attorney & Professional Support', [
+    'Has Attorney'               => 'has_attorney',
+    'Attorney Name'              => 'attorney_name',
+    'Attorney Firm'              => 'attorney_firm',
+    'Attorney Phone'             => 'attorney_phone',
+    'Attorney Email'             => 'attorney_email',
+    'Avoid Professional Contact' => 'avoid_professional_contact',
+], $payload);
+
+echo section('Impact Details', [
+    'Family Affected'             => 'family_affected',
+    'Family Details'              => 'family_affected_details',
+    'Financial Affected'          => 'financial_affected',
+    'Financial Details'           => 'financial_affected_details',
+    'Credit Affected'             => 'credit_affected',
+    'Credit Details'              => 'credit_affected_details',
+    'Business Affected'           => 'business_affected',
+    'Business Details'            => 'business_affected_details',
+    'Reputation Affected'         => 'reputation_affected',
+    'Reputation Details'          => 'reputation_affected_details',
+    'Prison Affected'             => 'prison_affected',
+    'Prison Details'              => 'prison_affected_details',
+    'Productive Time Affected'    => 'productive_time_affected',
+    'Productive Time Details'     => 'productive_time_affected_details',
+    'Reentry Affected'            => 'reentry_affected',
+    'Reentry Details'             => 'reentry_affected_details',
+], $payload);
+
+echo section('Consultation Goals', [
+    'Goals'                  => 'consultation_goals',
+    'Successful Consultation' => 'successful_consultation',
+], $payload);
+
+/* ── Readiness Scores — rendered as chips ── */
+$scoreFields = [
+    'Family'     => 'score_family',
+    'Financial'  => 'score_financial',
+    'Business'   => 'score_business',
+    'Reputation' => 'score_reputation',
+    'Prison'     => 'score_prison',
+    'Reentry'    => 'score_reentry',
+    'Overall'    => 'score_overall',
+];
+$chips = '';
+foreach ($scoreFields as $label => $key) {
+    $v = val($payload, $key);
+    if ($v !== null) {
+        $chips .= "<div class='score-chip'><span class='s-lbl'>" . safeText($label) . "</span><span class='s-val'>{$v}</span></div>";
+    }
+}
+if ($chips) {
+    echo "<div class='section'><div class='sec-head'>Readiness Scores</div><div class='scores'>{$chips}</div></div>";
+}
+?>
+
+</div><!-- /content -->
+
+<div class="foot">
+    <span>The Phelonpreneur Network &mdash; Readiness support only. No legal advice provided.</span>
+    <span><strong>Printed:</strong> <?php echo date('M j, Y g:i A'); ?></span>
+</div>
+
+<?php endif; ?>
+</div><!-- /page -->
+</body>
+</html>
