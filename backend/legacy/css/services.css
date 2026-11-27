@@ -1,0 +1,239 @@
+.service-page {
+  padding-top: 80px;
+}
+
+.service-detail,
+.service-directory {
+  --service-burgundy: #67283a;
+  --service-line: #dfd0be;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+.service-hero {
+  padding-block: clamp(3rem, 8vw, 7rem);
+  color: var(--beige);
+  background: radial-gradient(ellipse at 80% 0%, #482329, transparent 58%), #161315;
+  border-bottom: 1px solid var(--line-gold);
+}
+
+.service-shell {
+  width: min(70rem, calc(100% - clamp(2rem, 8vw, 6rem)));
+  margin-inline: auto;
+}
+
+.service-back {
+  display: inline-block;
+  color: var(--gold2);
+  text-decoration: underline;
+  text-underline-offset: .22em;
+}
+
+.service-eyebrow {
+  margin-block: 2rem .85rem;
+  color: var(--gold2);
+  font-weight: 700;
+  font-size: .875rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.service-detail h1,
+.service-detail h2,
+.service-directory h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  line-height: 1.15;
+}
+
+.service-hero h1 {
+  max-width: 20ch;
+  font-size: clamp(2.2rem, 6vw, 4.75rem);
+}
+
+.service-detail h2,
+.service-directory h2 {
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+}
+
+.service-intro {
+  max-width: 64ch;
+  margin-block: 1.3rem 1.65rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.service-button {
+  display: inline-block;
+  max-width: 100%;
+  padding: .9rem 1.15rem;
+  border-radius: .4rem;
+  background: var(--gold2);
+  color: #24171b;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+}
+
+.service-button:hover {
+  background: #f1dcae;
+}
+
+.service-detail a:focus-visible,
+.service-directory a:focus-visible {
+  outline: 2px solid var(--service-burgundy);
+  outline-offset: 4px;
+}
+
+.service-hero a:focus-visible,
+.service-closing a:focus-visible {
+  outline-color: var(--gold2);
+}
+
+.service-body,
+.service-directory,
+.service-closing {
+  padding-block: clamp(2.75rem, 6vw, 5.5rem);
+}
+
+.service-information,
+.service-specialties {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.1rem, 4vw, 3rem);
+}
+
+.service-support-list,
+.service-directory__links {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.service-support-list li {
+  padding: .55rem 0;
+  border-bottom: 1px solid var(--service-line);
+}
+
+.service-audience,
+.service-specialty {
+  padding: clamp(1.2rem, 4vw, 2.2rem);
+  border: 1px solid var(--service-line);
+  border-radius: .65rem;
+  background: #f4eee4;
+}
+
+.service-audience {
+  align-self: start;
+  border-top: 3px solid var(--service-burgundy);
+}
+
+.service-audience p,
+.service-specialty p {
+  margin-top: .75rem;
+}
+
+.service-specialties {
+  margin-top: clamp(2rem, 5vw, 4rem);
+}
+
+.service-specialty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.service-specialty h2 {
+  font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+}
+
+.service-specialty p {
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.service-note {
+  margin-top: 1rem;
+  color: #57464b;
+}
+
+.service-closing {
+  color: var(--beige);
+  text-align: center;
+  background: #49252e;
+}
+
+.service-closing p {
+  max-width: 60ch;
+  margin: 1rem auto 1.45rem;
+}
+
+.service-directory {
+  scroll-margin-top: 80px;
+}
+
+.service-directory__links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+}
+
+.service-directory__links li {
+  display: flex;
+}
+
+.service-directory__links a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: .75rem 1rem;
+  border: 1px solid var(--service-line);
+  border-radius: .4rem;
+  color: var(--service-burgundy);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+.service-directory__links a:hover {
+  background: #f4eee4;
+}
+
+.service-directory--home {
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+  background: transparent;
+  color: var(--beige);
+}
+
+.service-directory--home h2 {
+  color: var(--beige);
+}
+
+.service-directory--home .service-directory__links a {
+  color: var(--gold2);
+  border-color: var(--line-gold);
+}
+
+.service-directory--home .service-directory__links a:hover {
+  background: #342229;
+}
+
+.service-directory--home a:focus-visible {
+  outline-color: var(--gold2);
+}
+
+@media (max-width: 660px) {
+  .service-information,
+  .service-specialties,
+  .service-directory__links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 440px) {
+  .service-detail + footer .flex.gap-6 {
+    flex-wrap: wrap;
+    gap: .75rem 1rem;
+  }
+}

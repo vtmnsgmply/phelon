@@ -1,6 +1,38 @@
-RewriteEngine on
+# public_html entry point. Upload this file to public_html together with the backend folder.
+# Every visitor is served by the Laravel app in backend/public, which delivers the built website
+# (backend/public/site), the staff back office (/login) and the API (/api).
+# The source folders (frontend, login) are not what visitors see and don't need to be uploaded.
 
+Options -Indexes
+RewriteEngine On
 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^(.*)$ $1.php
+# Never serve hidden files, logs or database dumps.
+<FilesMatch "(^\.(?!well-known)|(?i:\.(?:log|sql|dmp|jsonl|bak|tgz|zip)$)|^webhook_debug\.json$)">
+    Require all denied
+</FilesMatch>
+
+# After uploading and confirming SSL works, remove the # from the next two lines to force HTTPS.
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# SSL certificate checks must reach the real files.
+RewriteRule ^\.well-known/ - [L]
+
+# Hidden files and folders such as .git
+RewriteRule (^|/)\. - [F,L]
+
+# Retired webhook addresses
+RewriteRule ^(?:aa_discovery_call|aa_payment_recieved|webhook|webhook_services|webhook_services_calendar)(?:\.php)?$ - [G,L,NC]
+
+# Handle trailing slashes here, so the internal backend/public path never shows in the address bar.
+# A page that shares its name with an uploaded folder (/login/) is served directly, to avoid a redirect loop.
+RewriteCond %{DOCUMENT_ROOT}/backend/public/$1 !-d
+RewriteCond %{DOCUMENT_ROOT}/$1 -d
+RewriteRule ^(.+)/$ backend/public/$1 [L]
+RewriteCond %{DOCUMENT_ROOT}/backend/public/$1 !-d
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+RewriteCond %{DOCUMENT_ROOT}/backend/public/$1 -d
+RewriteRule ^(.*[^/])$ /$1/ [R=301,L]
+
+# Everything else goes to the application.
+RewriteRule ^(.*)$ backend/public/$1 [L]

@@ -1,0 +1,7 @@
+/* SweetAlert2 in the app's colours and type. */
+.swal2-container .alert-popup { border-radius: var(--r-lg); background: var(--cream-50); color: var(--ink); font-family: var(--font-body); box-shadow: var(--shadow-3); }
+.alert-popup .swal2-title { font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; color: var(--ink); }
+.alert-popup .swal2-html-container { color: var(--muted); font-size: .9375rem; overflow-wrap: anywhere; }
+.alert-popup .swal2-icon.swal2-warning { border-color: var(--gold-500); color: var(--gold-700); }
+.alert-popup .alert-actions { gap: var(--space-3); }
+@media (prefers-reduced-motion: reduce) { .swal2-container, .swal2-container * { animation-duration: .001ms !important; transition-duration: .001ms !important; } }

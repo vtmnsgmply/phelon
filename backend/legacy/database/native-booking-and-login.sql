@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS phelon_staff_users (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(254) NOT NULL UNIQUE,
+    display_name VARCHAR(100) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    active TINYINT(1) NOT NULL DEFAULT 1,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS phelon_discovery_bookings (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    reference CHAR(24) CHARACTER SET ascii NOT NULL UNIQUE,
+    starts_at_utc DATETIME NOT NULL UNIQUE,
+    ends_at_utc DATETIME NOT NULL,
+    service_key VARCHAR(64) NULL,
+    subtype_key VARCHAR(64) NULL,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(254) NOT NULL,
+    phone VARCHAR(32) NOT NULL,
+    state_code CHAR(2) CHARACTER SET ascii NOT NULL,
+    visitor_timezone VARCHAR(80) NOT NULL,
+    concern VARCHAR(300) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS phelon_rate_limits (
+    bucket CHAR(64) CHARACTER SET ascii NOT NULL PRIMARY KEY,
+    window_id INT UNSIGNED NOT NULL,
+    attempts SMALLINT UNSIGNED NOT NULL,
+    INDEX ix_phelon_rate_limits_window (window_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

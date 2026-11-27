@@ -1,0 +1,41 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, sans-serif;
+  color: #241a1e;
+  background: #141013;
+  --gold: #e6c98b;
+  --burgundy: #642a3e;
+  --cream: #fbf6ec;
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: clamp(.75rem, 4vw, 3rem); min-height: 100vh; display: grid; place-items: center; }
+.portal {
+  width: min(58rem, 100%); display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  background: var(--cream); border: 1px solid #866b45; border-radius: 1rem; overflow: hidden;
+}
+.portal-brand, .portal-content { padding: clamp(1.45rem, 5vw, 3.5rem); }
+.portal-brand {
+  display: grid; align-content: space-between; gap: 2rem; min-height: 32rem; color: var(--cream);
+  background: radial-gradient(ellipse at 0 100%, #522637, transparent 70%), #181217;
+}
+.brand-link { display: flex; align-items: center; gap: .8rem; color: var(--gold); text-decoration: none; font-weight: 700; }
+.brand-link img { object-fit: contain; flex: none; }
+.brand-statement, h1, h2 { font-family: Georgia, serif; line-height: 1.04; margin: .5rem 0 1rem; font-size: clamp(2rem, 4vw, 3.75rem); }
+.eyebrow { font-size: .875rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; color: var(--burgundy); }
+.portal-brand .eyebrow, .back-link { color: var(--gold); }
+.portal-content { display: grid; align-items: center; }
+.portal-inner { min-width: 0; }
+.intro { margin: 0 0 1.75rem; color: #645459; line-height: 1.5; }
+form { display: grid; gap: .65rem; }
+label { font-weight: 700; }
+input, button { font: inherit; min-height: 3rem; border-radius: .45rem; }
+input { min-width: 0; width: 100%; padding: .65rem .8rem; border: 1px solid #9a8174; background: #fffdf9; margin-bottom: .5rem; }
+button { padding: .7rem 1.1rem; border: 0; color: white; background: var(--burgundy); font-weight: 750; cursor: pointer; }
+button:disabled { opacity: .65; cursor: default; }
+:focus-visible { outline: 2px solid #985044; outline-offset: 3px; }
+[data-login-status] { padding: .75rem 1rem; color: #67233a; background: #f3e3e4; border-radius: .45rem; }
+@media (max-width: 650px) {
+  .portal { grid-template-columns: minmax(0, 1fr); }
+  .portal-brand { min-height: unset; gap: .85rem; }
+  .brand-statement { font-size: 1.65rem; }
+}

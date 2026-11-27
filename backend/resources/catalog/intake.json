@@ -1,0 +1,1321 @@
+[
+    {
+        "title": "Contact Information",
+        "fields": [
+            {
+                "name": "first_name",
+                "type": "text",
+                "label": "First Name",
+                "required": true
+            },
+            {
+                "name": "last_name",
+                "type": "text",
+                "label": "Last Name",
+                "required": true
+            },
+            {
+                "name": "email",
+                "type": "email",
+                "label": "Email Address",
+                "required": true
+            },
+            {
+                "name": "phone",
+                "type": "text",
+                "label": "Phone Number",
+                "required": true
+            },
+            {
+                "name": "best_phone",
+                "type": "text",
+                "label": "Best Phone for Consultation",
+                "required": true
+            },
+            {
+                "name": "state",
+                "type": "select",
+                "label": "State",
+                "required": true,
+                "options": [
+                    [
+                        "Alabama",
+                        "Alabama"
+                    ],
+                    [
+                        "Alaska",
+                        "Alaska"
+                    ],
+                    [
+                        "Arizona",
+                        "Arizona"
+                    ],
+                    [
+                        "Arkansas",
+                        "Arkansas"
+                    ],
+                    [
+                        "California",
+                        "California"
+                    ],
+                    [
+                        "Colorado",
+                        "Colorado"
+                    ],
+                    [
+                        "Connecticut",
+                        "Connecticut"
+                    ],
+                    [
+                        "Delaware",
+                        "Delaware"
+                    ],
+                    [
+                        "Florida",
+                        "Florida"
+                    ],
+                    [
+                        "Georgia",
+                        "Georgia"
+                    ],
+                    [
+                        "Hawaii",
+                        "Hawaii"
+                    ],
+                    [
+                        "Idaho",
+                        "Idaho"
+                    ],
+                    [
+                        "Illinois",
+                        "Illinois"
+                    ],
+                    [
+                        "Indiana",
+                        "Indiana"
+                    ],
+                    [
+                        "Iowa",
+                        "Iowa"
+                    ],
+                    [
+                        "Kansas",
+                        "Kansas"
+                    ],
+                    [
+                        "Kentucky",
+                        "Kentucky"
+                    ],
+                    [
+                        "Louisiana",
+                        "Louisiana"
+                    ],
+                    [
+                        "Maine",
+                        "Maine"
+                    ],
+                    [
+                        "Maryland",
+                        "Maryland"
+                    ],
+                    [
+                        "Massachusetts",
+                        "Massachusetts"
+                    ],
+                    [
+                        "Michigan",
+                        "Michigan"
+                    ],
+                    [
+                        "Minnesota",
+                        "Minnesota"
+                    ],
+                    [
+                        "Mississippi",
+                        "Mississippi"
+                    ],
+                    [
+                        "Missouri",
+                        "Missouri"
+                    ],
+                    [
+                        "Montana",
+                        "Montana"
+                    ],
+                    [
+                        "Nebraska",
+                        "Nebraska"
+                    ],
+                    [
+                        "Nevada",
+                        "Nevada"
+                    ],
+                    [
+                        "New Hampshire",
+                        "New Hampshire"
+                    ],
+                    [
+                        "New Jersey",
+                        "New Jersey"
+                    ],
+                    [
+                        "New Mexico",
+                        "New Mexico"
+                    ],
+                    [
+                        "New York",
+                        "New York"
+                    ],
+                    [
+                        "North Carolina",
+                        "North Carolina"
+                    ],
+                    [
+                        "North Dakota",
+                        "North Dakota"
+                    ],
+                    [
+                        "Ohio",
+                        "Ohio"
+                    ],
+                    [
+                        "Oklahoma",
+                        "Oklahoma"
+                    ],
+                    [
+                        "Oregon",
+                        "Oregon"
+                    ],
+                    [
+                        "Pennsylvania",
+                        "Pennsylvania"
+                    ],
+                    [
+                        "Rhode Island",
+                        "Rhode Island"
+                    ],
+                    [
+                        "South Carolina",
+                        "South Carolina"
+                    ],
+                    [
+                        "South Dakota",
+                        "South Dakota"
+                    ],
+                    [
+                        "Tennessee",
+                        "Tennessee"
+                    ],
+                    [
+                        "Texas",
+                        "Texas"
+                    ],
+                    [
+                        "Utah",
+                        "Utah"
+                    ],
+                    [
+                        "Vermont",
+                        "Vermont"
+                    ],
+                    [
+                        "Virginia",
+                        "Virginia"
+                    ],
+                    [
+                        "Washington",
+                        "Washington"
+                    ],
+                    [
+                        "West Virginia",
+                        "West Virginia"
+                    ],
+                    [
+                        "Wisconsin",
+                        "Wisconsin"
+                    ],
+                    [
+                        "Wyoming",
+                        "Wyoming"
+                    ],
+                    [
+                        "Washington D.C.",
+                        "Washington D.C."
+                    ]
+                ]
+            },
+            {
+                "name": "timezone",
+                "type": "select",
+                "label": "Time Zone",
+                "required": true,
+                "options": [
+                    [
+                        "Eastern (ET)",
+                        "Eastern (ET)"
+                    ],
+                    [
+                        "Central (CT)",
+                        "Central (CT)"
+                    ],
+                    [
+                        "Mountain (MT)",
+                        "Mountain (MT)"
+                    ],
+                    [
+                        "Pacific (PT)",
+                        "Pacific (PT)"
+                    ],
+                    [
+                        "Alaska (AKT)",
+                        "Alaska (AKT)"
+                    ],
+                    [
+                        "Hawaii (HT)",
+                        "Hawaii (HT)"
+                    ]
+                ]
+            },
+            {
+                "name": "preferred_name",
+                "type": "text",
+                "label": "Preferred Name",
+                "required": false
+            },
+            {
+                "name": "city",
+                "type": "text",
+                "label": "City",
+                "required": false
+            },
+            {
+                "name": "alternate_phone",
+                "type": "text",
+                "label": "Alternate Phone",
+                "required": false
+            },
+            {
+                "name": "best_time",
+                "type": "select",
+                "label": "Best Time to Reach You",
+                "required": false,
+                "options": [
+                    [
+                        "Morning (8am – 12pm)",
+                        "Morning (8am – 12pm)"
+                    ],
+                    [
+                        "Afternoon (12pm – 5pm)",
+                        "Afternoon (12pm – 5pm)"
+                    ],
+                    [
+                        "Evening (5pm – 8pm)",
+                        "Evening (5pm – 8pm)"
+                    ]
+                ]
+            },
+            {
+                "name": "text_consent",
+                "type": "radio",
+                "label": "Text Consent",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Consultation Purpose",
+        "fields": [
+            {
+                "name": "consultation_for",
+                "type": "select",
+                "label": "Who is this consultation for?",
+                "required": true,
+                "options": [
+                    [
+                        "Myself",
+                        "Myself"
+                    ],
+                    [
+                        "Spouse / partner",
+                        "Spouse / partner"
+                    ],
+                    [
+                        "Parent",
+                        "Parent"
+                    ],
+                    [
+                        "Adult child",
+                        "Adult child"
+                    ],
+                    [
+                        "Minor child",
+                        "Minor child"
+                    ],
+                    [
+                        "Sibling",
+                        "Sibling"
+                    ],
+                    [
+                        "Family member",
+                        "Family member"
+                    ],
+                    [
+                        "Business partner",
+                        "Business partner"
+                    ],
+                    [
+                        "Client / referral",
+                        "Client / referral"
+                    ],
+                    [
+                        "Other",
+                        "Other"
+                    ]
+                ]
+            },
+            {
+                "name": "directly_impacted",
+                "type": "select",
+                "label": "Are you the person directly impacted?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "I am supporting someone else",
+                        "I am supporting someone else"
+                    ],
+                    [
+                        "Shared situation",
+                        "Shared situation"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ]
+            },
+            {
+                "name": "decision_maker",
+                "type": "select",
+                "label": "Are you the main decision-maker for paid support if recommended?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Shared decision",
+                        "Shared decision"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ]
+            },
+            {
+                "name": "other_decision_person",
+                "type": "text",
+                "label": "If someone else needs to be involved, who?",
+                "required": false
+            }
+        ]
+    },
+    {
+        "title": "Current Situation",
+        "fields": [
+            {
+                "name": "current_stage",
+                "type": "select",
+                "label": "Which stage best describes the current situation?",
+                "required": true,
+                "options": [
+                    [
+                        "Not sure yet",
+                        "Not sure yet"
+                    ],
+                    [
+                        "Under investigation",
+                        "Under investigation"
+                    ],
+                    [
+                        "Charged / case pending",
+                        "Charged / case pending"
+                    ],
+                    [
+                        "Pretrial",
+                        "Pretrial"
+                    ],
+                    [
+                        "Preparing for sentencing",
+                        "Preparing for sentencing"
+                    ],
+                    [
+                        "Sentenced",
+                        "Sentenced"
+                    ],
+                    [
+                        "Preparing to report",
+                        "Preparing to report"
+                    ],
+                    [
+                        "Currently incarcerated",
+                        "Currently incarcerated"
+                    ],
+                    [
+                        "Preparing for halfway house / RRC",
+                        "Preparing for halfway house / RRC"
+                    ],
+                    [
+                        "Preparing for home confinement",
+                        "Preparing for home confinement"
+                    ],
+                    [
+                        "Recently released / reentry",
+                        "Recently released / reentry"
+                    ],
+                    [
+                        "Post-release rebuild",
+                        "Post-release rebuild"
+                    ],
+                    [
+                        "Business / reputation concern",
+                        "Business / reputation concern"
+                    ],
+                    [
+                        "Family member seeking support",
+                        "Family member seeking support"
+                    ],
+                    [
+                        "Other",
+                        "Other"
+                    ]
+                ]
+            },
+            {
+                "name": "urgency",
+                "type": "radio",
+                "label": "Urgency",
+                "required": true,
+                "options": [
+                    [
+                        "Immediate: 0–7 days",
+                        "Immediate: 0–7 days"
+                    ],
+                    [
+                        "Soon: 1–2 weeks",
+                        "Soon: 1–2 weeks"
+                    ],
+                    [
+                        "This month",
+                        "This month"
+                    ],
+                    [
+                        "30–60 days",
+                        "30–60 days"
+                    ],
+                    [
+                        "Long-term planning",
+                        "Long-term planning"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Important Dates",
+        "fields": [
+            {
+                "name": "has_important_date",
+                "type": "select",
+                "label": "Is there an important upcoming date or deadline?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ]
+            },
+            {
+                "name": "important_date",
+                "type": "date",
+                "label": "What is the date?",
+                "required": false,
+                "when": [
+                    "has_important_date",
+                    "Yes"
+                ]
+            },
+            {
+                "name": "deadline_type",
+                "type": "select",
+                "label": "Type of date or deadline",
+                "required": false,
+                "when": [
+                    "has_important_date",
+                    "Yes"
+                ],
+                "options": [
+                    [
+                        "Court date",
+                        "Court date"
+                    ],
+                    [
+                        "Sentencing date",
+                        "Sentencing date"
+                    ],
+                    [
+                        "Report date",
+                        "Report date"
+                    ],
+                    [
+                        "Release date",
+                        "Release date"
+                    ],
+                    [
+                        "Halfway house / RRC date",
+                        "Halfway house / RRC date"
+                    ],
+                    [
+                        "Home confinement date",
+                        "Home confinement date"
+                    ],
+                    [
+                        "Probation / supervision appointment",
+                        "Probation / supervision appointment"
+                    ],
+                    [
+                        "Attorney meeting",
+                        "Attorney meeting"
+                    ],
+                    [
+                        "Business deadline",
+                        "Business deadline"
+                    ],
+                    [
+                        "Other",
+                        "Other"
+                    ]
+                ]
+            },
+            {
+                "name": "date_readiness_need",
+                "type": "textarea",
+                "label": "What do you need to be ready for before this date?",
+                "required": false
+            }
+        ]
+    },
+    {
+        "title": "Areas of Concern",
+        "fields": [
+            {
+                "name": "concerns",
+                "type": "checkbox",
+                "label": "Concerns",
+                "required": true,
+                "options": [
+                    [
+                        "Family stability",
+                        "Family stability"
+                    ],
+                    [
+                        "Children / household impact",
+                        "Children / household impact"
+                    ],
+                    [
+                        "Spouse or partner support",
+                        "Spouse or partner support"
+                    ],
+                    [
+                        "Bills / household responsibilities",
+                        "Bills / household responsibilities"
+                    ],
+                    [
+                        "Financial organization",
+                        "Financial organization"
+                    ],
+                    [
+                        "Credit concerns",
+                        "Credit concerns"
+                    ],
+                    [
+                        "Business continuity",
+                        "Business continuity"
+                    ],
+                    [
+                        "Employment concerns",
+                        "Employment concerns"
+                    ],
+                    [
+                        "Reputation / online presence",
+                        "Reputation / online presence"
+                    ],
+                    [
+                        "Prison readiness",
+                        "Prison readiness"
+                    ],
+                    [
+                        "Productive-time planning",
+                        "Productive-time planning"
+                    ],
+                    [
+                        "Release preparation",
+                        "Release preparation"
+                    ],
+                    [
+                        "Halfway house / RRC readiness",
+                        "Halfway house / RRC readiness"
+                    ],
+                    [
+                        "Home confinement preparation",
+                        "Home confinement preparation"
+                    ],
+                    [
+                        "Reentry planning",
+                        "Reentry planning"
+                    ],
+                    [
+                        "Not sure where to start",
+                        "Not sure where to start"
+                    ]
+                ]
+            },
+            {
+                "name": "biggest_pressure",
+                "type": "textarea",
+                "label": "What is the biggest pressure point right now?",
+                "required": true
+            },
+            {
+                "name": "helpful_consultation",
+                "type": "textarea",
+                "label": "What would make this consultation helpful for you?",
+                "required": true
+            }
+        ]
+    },
+    {
+        "title": "Attorney & Professional Support",
+        "fields": [
+            {
+                "name": "has_attorney",
+                "type": "select",
+                "label": "Do you currently have an attorney?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Searching for one",
+                        "Searching for one"
+                    ],
+                    [
+                        "Not applicable",
+                        "Not applicable"
+                    ],
+                    [
+                        "Prefer not to say",
+                        "Prefer not to say"
+                    ]
+                ]
+            },
+            {
+                "name": "attorney_name",
+                "type": "text",
+                "label": "Attorney Name",
+                "required": false
+            },
+            {
+                "name": "attorney_firm",
+                "type": "text",
+                "label": "Attorney Firm",
+                "required": false
+            },
+            {
+                "name": "attorney_phone",
+                "type": "text",
+                "label": "Attorney Phone",
+                "required": false
+            },
+            {
+                "name": "attorney_email",
+                "type": "email",
+                "label": "Attorney Email",
+                "required": false
+            },
+            {
+                "name": "avoid_professional_contact",
+                "type": "select",
+                "label": "Avoid contacting professionals without written permission?",
+                "required": false,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Not applicable",
+                        "Not applicable"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Impact Details",
+        "fields": [
+            {
+                "name": "family_affected",
+                "type": "select",
+                "label": "Is your family currently affected by this situation?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ],
+                "concerns": [
+                    "Family stability",
+                    "Children / household impact",
+                    "Spouse or partner support"
+                ]
+            },
+            {
+                "name": "financial_affected",
+                "type": "select",
+                "label": "Are bills, income, or household responsibilities currently affected?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ],
+                "concerns": [
+                    "Bills / household responsibilities",
+                    "Financial organization"
+                ]
+            },
+            {
+                "name": "credit_affected",
+                "type": "select",
+                "label": "Are there credit concerns connected to this situation?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ],
+                "concerns": [
+                    "Credit concerns"
+                ]
+            },
+            {
+                "name": "business_affected",
+                "type": "select",
+                "label": "Is a business, job, professional role, or employment situation affected?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ],
+                "concerns": [
+                    "Business continuity",
+                    "Employment concerns"
+                ]
+            },
+            {
+                "name": "reputation_affected",
+                "type": "select",
+                "label": "Are there reputation, online presence, or public image concerns?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ],
+                "concerns": [
+                    "Reputation / online presence"
+                ]
+            },
+            {
+                "name": "prison_affected",
+                "type": "select",
+                "label": "Is preparation for reporting, incarceration, or time away from home a concern?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ],
+                "concerns": [
+                    "Prison readiness"
+                ]
+            },
+            {
+                "name": "productive_time_affected",
+                "type": "select",
+                "label": "Is the person interested in using time productively?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ],
+                "concerns": [
+                    "Productive-time planning"
+                ]
+            },
+            {
+                "name": "reentry_affected",
+                "type": "select",
+                "label": "Is release, halfway house, home confinement, or reentry preparation needed?",
+                "required": true,
+                "options": [
+                    [
+                        "Yes",
+                        "Yes"
+                    ],
+                    [
+                        "No",
+                        "No"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ],
+                "concerns": [
+                    "Release preparation",
+                    "Halfway house / RRC readiness",
+                    "Home confinement preparation",
+                    "Reentry planning"
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Consultation Goals",
+        "fields": [
+            {
+                "name": "consultation_goals",
+                "type": "checkbox",
+                "label": "Consultation Goals",
+                "required": true,
+                "options": [
+                    [
+                        "Clear next steps",
+                        "Clear next steps"
+                    ],
+                    [
+                        "Family stability direction",
+                        "Family stability direction"
+                    ],
+                    [
+                        "Financial organization direction",
+                        "Financial organization direction"
+                    ],
+                    [
+                        "Credit readiness direction",
+                        "Credit readiness direction"
+                    ],
+                    [
+                        "Business continuity direction",
+                        "Business continuity direction"
+                    ],
+                    [
+                        "Reputation strategy direction",
+                        "Reputation strategy direction"
+                    ],
+                    [
+                        "Prison readiness direction",
+                        "Prison readiness direction"
+                    ],
+                    [
+                        "Productive-time direction",
+                        "Productive-time direction"
+                    ],
+                    [
+                        "Release / reentry direction",
+                        "Release / reentry direction"
+                    ],
+                    [
+                        "Package recommendation",
+                        "Package recommendation"
+                    ],
+                    [
+                        "Not sure",
+                        "Not sure"
+                    ]
+                ]
+            },
+            {
+                "name": "successful_consultation",
+                "type": "textarea",
+                "label": "What would make this consultation successful for you?",
+                "required": true
+            }
+        ]
+    },
+    {
+        "title": "Readiness Self-Assessment",
+        "fields": [
+            {
+                "name": "score_family",
+                "type": "select",
+                "label": "Family stability",
+                "required": true,
+                "options": [
+                    [
+                        "1",
+                        "1"
+                    ],
+                    [
+                        "2",
+                        "2"
+                    ],
+                    [
+                        "3",
+                        "3"
+                    ],
+                    [
+                        "4",
+                        "4"
+                    ],
+                    [
+                        "5",
+                        "5"
+                    ]
+                ]
+            },
+            {
+                "name": "score_financial",
+                "type": "select",
+                "label": "Financial organization",
+                "required": true,
+                "options": [
+                    [
+                        "1",
+                        "1"
+                    ],
+                    [
+                        "2",
+                        "2"
+                    ],
+                    [
+                        "3",
+                        "3"
+                    ],
+                    [
+                        "4",
+                        "4"
+                    ],
+                    [
+                        "5",
+                        "5"
+                    ]
+                ]
+            },
+            {
+                "name": "score_business",
+                "type": "select",
+                "label": "Business / employment continuity",
+                "required": true,
+                "options": [
+                    [
+                        "1",
+                        "1"
+                    ],
+                    [
+                        "2",
+                        "2"
+                    ],
+                    [
+                        "3",
+                        "3"
+                    ],
+                    [
+                        "4",
+                        "4"
+                    ],
+                    [
+                        "5",
+                        "5"
+                    ]
+                ]
+            },
+            {
+                "name": "score_reputation",
+                "type": "select",
+                "label": "Reputation readiness",
+                "required": true,
+                "options": [
+                    [
+                        "1",
+                        "1"
+                    ],
+                    [
+                        "2",
+                        "2"
+                    ],
+                    [
+                        "3",
+                        "3"
+                    ],
+                    [
+                        "4",
+                        "4"
+                    ],
+                    [
+                        "5",
+                        "5"
+                    ]
+                ]
+            },
+            {
+                "name": "score_prison",
+                "type": "select",
+                "label": "Prison / reporting readiness",
+                "required": true,
+                "options": [
+                    [
+                        "1",
+                        "1"
+                    ],
+                    [
+                        "2",
+                        "2"
+                    ],
+                    [
+                        "3",
+                        "3"
+                    ],
+                    [
+                        "4",
+                        "4"
+                    ],
+                    [
+                        "5",
+                        "5"
+                    ]
+                ]
+            },
+            {
+                "name": "score_reentry",
+                "type": "select",
+                "label": "Release / reentry readiness",
+                "required": true,
+                "options": [
+                    [
+                        "1",
+                        "1"
+                    ],
+                    [
+                        "2",
+                        "2"
+                    ],
+                    [
+                        "3",
+                        "3"
+                    ],
+                    [
+                        "4",
+                        "4"
+                    ],
+                    [
+                        "5",
+                        "5"
+                    ]
+                ]
+            },
+            {
+                "name": "score_overall",
+                "type": "select",
+                "label": "Overall readiness",
+                "required": true,
+                "options": [
+                    [
+                        "1",
+                        "1"
+                    ],
+                    [
+                        "2",
+                        "2"
+                    ],
+                    [
+                        "3",
+                        "3"
+                    ],
+                    [
+                        "4",
+                        "4"
+                    ],
+                    [
+                        "5",
+                        "5"
+                    ]
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Optional Uploads",
+        "fields": []
+    },
+    {
+        "title": "Disclaimer & Consent",
+        "fields": [
+            {
+                "name": "consent_1",
+                "type": "checkbox",
+                "label": "I understand that The PHELONPRENEUR Network provides non-legal readiness and life-stability support only.",
+                "required": true
+            },
+            {
+                "name": "consent_2",
+                "type": "checkbox",
+                "label": "I understand this consultation does not replace an attorney or any licensed professional.",
+                "required": true
+            },
+            {
+                "name": "consent_3",
+                "type": "checkbox",
+                "label": "I understand that no legal, financial, credit, reputation, employment, housing, program, release, or reentry outcome is guaranteed.",
+                "required": true
+            },
+            {
+                "name": "consent_4",
+                "type": "checkbox",
+                "label": "I understand that submitting this form and attending this consultation does not create an attorney-client relationship.",
+                "required": true
+            },
+            {
+                "name": "consent_5",
+                "type": "checkbox",
+                "label": "I agree not to submit privileged legal strategy, confidential attorney-client communication, protected health information, or sensitive case details.",
+                "required": true
+            },
+            {
+                "name": "consent_6",
+                "type": "checkbox",
+                "label": "I consent to being contacted by phone, email, or text regarding my consultation and related services.",
+                "required": true
+            },
+            {
+                "name": "consent_7",
+                "type": "checkbox",
+                "label": "I understand that the consultation fee is paid before booking and is subject to the cancellation / reschedule policy.",
+                "required": true
+            }
+        ]
+    }
+]

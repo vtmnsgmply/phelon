@@ -1,0 +1,12 @@
+RewriteEngine on
+
+<FilesMatch "(^\.|(?i:\.(?:log|sql|dmp|jsonl|bak)$)|^webhook_debug\.json$)">
+    Require all denied
+</FilesMatch>
+
+RewriteRule ^(?:aa_discovery_call|aa_payment_recieved|webhook|webhook_services|webhook_services_calendar)(?:\.php)?$ - [G,L,NC]
+
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php

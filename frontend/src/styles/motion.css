@@ -1,0 +1,84 @@
+@layer components {
+  @keyframes ph-rise-t { from { transform: translateY(18px); } to { transform: none; } }
+  @keyframes ph-rise   { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes ph-fade   { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes ph-settle { from { transform: scale(1.05); } to { transform: none; } }
+  @keyframes ph-draw   { to { stroke-dashoffset: 0; } }
+  @keyframes ph-spin   { to { transform: rotate(360deg); } }
+  @keyframes ph-shimmer { to { transform: translateX(100%); } }
+
+  /* Tier 1: home hero load sequence. The headline and portrait move but never fade (LCP). */
+  .ph-hero-title   { animation: ph-rise-t 700ms var(--ease-out) both; }
+  .ph-hero-copy    { animation: ph-rise 700ms var(--ease-out) 120ms both; }
+  .ph-hero-actions { animation: ph-rise 700ms var(--ease-out) 240ms both; }
+  .ph-hero .ph-arch img { animation: ph-settle 1200ms var(--ease-out) 200ms both; }
+  /* vector-effect keeps the stroke crisp; pathLength="1" lets the dash cover the whole path */
+  .ph-hero .ph-arch-outline path { vector-effect: none; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ph-draw 1100ms var(--ease-out) 150ms forwards; }
+  .ph-hero-chip    { animation: ph-rise 600ms var(--ease-out) 900ms both; }
+
+  /* Buttons: press feedback always, sheen on hover-capable devices only */
+  .ph-button { transition: transform var(--dur-1) var(--ease-out), background-color var(--dur-2) var(--ease-out); }
+  .ph-button:active { transform: scale(.98); }
+  @media (hover: hover) {
+    .ph-button--primary { position: relative; overflow: hidden; isolation: isolate; }
+    .ph-button--primary::after { content: ""; position: absolute; inset: 0; z-index: -1; transform: translateX(-120%);
+      background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / .28), transparent 70%); transition: transform 600ms var(--ease-out); }
+    .ph-button--primary:hover::after { transform: translateX(120%); }
+  }
+
+  /* Cards: spotlight follows the pointer. Only linked cards lift. */
+  [data-spotlight] { position: relative; isolation: isolate; }
+  [data-spotlight]::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; opacity: 0;
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgb(233 201 134 / .16), transparent 70%);
+    transition: opacity var(--dur-2) var(--ease-out); }
+  @media (hover: hover) {
+    .ph-service-card { transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out); }
+    .ph-service-card:hover { transform: translateY(-2px); border-color: var(--border-hover); }
+    [data-spotlight]:hover::before { opacity: 1; }
+  }
+
+  /* Tier 3a: scroll reveal. Hidden only when JS is running. */
+  .js [data-reveal]:not([data-in]) { opacity: 0; transform: translateY(14px); }
+  .js [data-reveal] { transition: opacity var(--dur-4) var(--ease-out), transform var(--dur-4) var(--ease-out); }
+  .js [data-reveal="stagger"]:not([data-in]) { opacity: 1; transform: none; }
+  .js [data-reveal="stagger"]:not([data-in]) > * { opacity: 0; transform: translateY(14px); }
+  .js [data-reveal="stagger"] > * { transition: opacity var(--dur-4) var(--ease-out), transform var(--dur-4) var(--ease-out); }
+  .js [data-reveal="stagger"] > :nth-child(2) { transition-delay: 70ms; }
+  .js [data-reveal="stagger"] > :nth-child(3) { transition-delay: 140ms; }
+  .js [data-reveal="stagger"] > :nth-child(4) { transition-delay: 210ms; }
+  .js [data-reveal="stagger"] > :nth-child(5) { transition-delay: 280ms; }
+  .js [data-reveal="stagger"] > :nth-child(6) { transition-delay: 350ms; }
+  .js [data-reveal="stagger"] > :nth-child(n+7) { transition-delay: 420ms; }
+
+  /* Tier 3b: the process line draws as it scrolls into view, where supported */
+  @supports (animation-timeline: view()) {
+    @keyframes ph-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    @keyframes ph-grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    .ph-process-line { transform-origin: top left; animation: ph-grow linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
+    @media (min-width: 56em) { .ph-process-line { animation-name: ph-grow-x; animation-range: entry 0% cover 40%; } }
+  }
+
+  /* Accordions: animate open and close where supported */
+  @supports (interpolate-size: allow-keywords) {
+    :root { interpolate-size: allow-keywords; }
+    details::details-content { block-size: 0; overflow: clip; transition: block-size var(--dur-3) var(--ease-out), content-visibility var(--dur-3) allow-discrete; }
+    details[open]::details-content { block-size: auto; }
+  }
+
+  /* One slow strip of the nine service names */
+  .ph-marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .ph-marquee-track { display: flex; inline-size: max-content; animation: ph-marquee 55s linear infinite; }
+  .ph-marquee-list { display: flex; gap: var(--space-7); padding-inline-end: var(--space-7); margin: 0; padding-block: 0; padding-inline-start: 0; list-style: none; }
+  .ph-marquee:is(:hover, :focus-within) .ph-marquee-track { animation-play-state: paused; }
+  @keyframes ph-marquee { to { transform: translateX(-50%); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0ms !important; scroll-behavior: auto !important; }
+    .js [data-reveal], .js [data-reveal] > * { opacity: 1 !important; transform: none !important; }
+    .ph-arch-outline path { stroke-dashoffset: 0 !important; }
+    .ph-process-line { transform: none !important; animation: none !important; }
+    .ph-marquee { overflow-x: auto; mask-image: none; }
+    .ph-marquee-track { animation: none !important; }
+    .ph-marquee-list[aria-hidden="true"] { display: none; }
+  }
+}

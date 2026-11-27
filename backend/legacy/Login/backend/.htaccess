@@ -1,0 +1,6 @@
+Options -Indexes
+RewriteEngine On
+RewriteRule ^(?:bin|Controllers|Repositories|Requests|Services)(?:/|$) - [F,L,NC]
+<Files "bootstrap.php">
+    Require all denied
+</Files>

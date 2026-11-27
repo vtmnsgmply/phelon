@@ -1,0 +1,94 @@
+<?php
+
+const PHELON_DISCOVERY_CTA = 'Schedule a Free 15-Minute Discovery Call';
+const PHELON_SERVICE_DISCLAIMER = 'The PHELONPRENEUR Network provides confidential, non-legal readiness and life-stability support. We do not provide legal advice, legal representation, financial advice, tax advice, therapy, medical advice, or guarantees of legal, financial, professional, or other outcomes.';
+
+function phelon_services(): array
+{
+    return [
+        'private-readiness-life-planning' => [
+            'title' => 'Private Readiness & Life Planning',
+            'description' => 'Confidential support for individuals and families navigating serious legal disruption. We help clients organize important responsibilities, identify priorities, and create structured plans for the life circumstances surrounding their situation.',
+            'support' => ['Responsibility inventory', 'Document organization', 'Priority mapping', 'Practical continuity plans'],
+            'audience' => 'Individuals and families facing serious legal disruption or major life transitions.',
+        ],
+        'family-household-stability' => [
+            'title' => 'Family & Household Stability',
+            'description' => 'Supporting spouses, partners, children, and families through major life transitions. Our services focus on household organization, family responsibilities, communication preparation, and maintaining stability during uncertain times.',
+            'support' => ['Household responsibilities', 'Family communication', 'Caregiving arrangements', 'Backup plans'],
+            'audience' => 'Spouses, partners, caregivers, and families preparing for a major transition.',
+        ],
+        'financial-stability' => [
+            'title' => 'Financial Stability',
+            'description' => 'Helping individuals and families organize financial responsibilities, important documents, household obligations, and continuity plans during periods of disruption. This service focuses on organization and preparedness, not financial advice or credit repair.',
+            'support' => ['Financial document inventory', 'Recurring obligations', 'Household bill organization', 'Continuity checklists'],
+            'audience' => 'Individuals and households managing financial responsibilities during disruption.',
+        ],
+        'business-career-continuity' => [
+            'title' => 'Business & Career Continuity',
+            'description' => 'Structured readiness support for business owners, entrepreneurs, executives, and working professionals. We help organize business responsibilities, operational continuity plans, employment transitions, and important business information.',
+            'support' => ['Responsibility handover', 'Operational documentation', 'Employment transition preparation', 'Continuity checklists'],
+            'audience' => 'Business owners, entrepreneurs, executives, and working professionals.',
+        ],
+        'reputation-digital-presence' => [
+            'title' => 'Reputation & Digital Presence',
+            'description' => 'Private support for individuals and professionals seeking to organize their digital presence, prepare for reputation-related challenges, and develop responsible personal or professional rebuilding plans.',
+            'support' => ['Digital footprint organization', 'Online profile assessment', 'Communication preparedness', 'Professional continuity planning'],
+            'audience' => 'Individuals and professionals managing personal or business reputation concerns.',
+            'note' => 'We do not guarantee content removal or reputation restoration, and we do not use deceptive or unlawful tactics.',
+            'subtypes' => [
+                'personal-reputation-readiness' => [
+                    'title' => 'Personal Reputation Readiness',
+                    'description' => 'Digital footprint organization, online profile assessment, and communication preparedness.',
+                ],
+                'executive-reputation-business-continuity' => [
+                    'title' => 'Executive Reputation & Business Continuity',
+                    'description' => 'Premium, customized support for physicians, executives, business owners, founders, and other professionals managing complex business and reputation-related challenges.',
+                ],
+            ],
+        ],
+        'federal-prison-readiness' => [
+            'title' => 'Federal & Prison Readiness',
+            'description' => 'Non-legal preparation and life-stability support for individuals and families navigating incarceration-related transitions. Services include personal document organization, family readiness, household transition planning, and practical preparation resources.',
+            'support' => ['Document organization', 'Family readiness', 'Household transition planning', 'Practical preparation resources'],
+            'audience' => 'Individuals and families preparing for incarceration-related transitions.',
+        ],
+        'productive-time-planning' => [
+            'title' => 'Productive-Time Planning',
+            'description' => 'Helping individuals establish meaningful personal development goals, educational priorities, family connection plans, and structured routines during periods of disruption.',
+            'support' => ['Personal development goals', 'Educational priorities', 'Family connection plans', 'Structured routines'],
+            'audience' => 'Individuals seeking purposeful use of time during major transitions.',
+        ],
+        'release-reentry-preparation' => [
+            'title' => 'Release & Reentry Preparation',
+            'description' => 'Life-stability planning for individuals and families preparing for the transition back into the community. Support includes housing readiness, employment preparation, family reunification planning, personal document organization, and resource navigation.',
+            'support' => ['Housing readiness', 'Employment preparation', 'Family reunification planning', 'Document and resource organization'],
+            'audience' => 'Individuals preparing for reentry and the people supporting them.',
+        ],
+        '90-day-ongoing-support' => [
+            'title' => '90-Day & Ongoing Support',
+            'description' => 'Extended planning, accountability, and continuity support for clients who need structured assistance implementing their readiness plans over time.',
+            'support' => ['Implementation check-ins', 'Priority reviews', 'Accountability', 'Continuity planning'],
+            'audience' => 'Clients who need extended structured support as they put their readiness plans into practice.',
+        ],
+    ];
+}
+
+function phelon_service_escape(string $value): string
+{
+    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+function phelon_service_url(string $slug): string
+{
+    return 'Service.php?service=' . rawurlencode($slug);
+}
+
+function phelon_booking_url(?string $slug = null, ?string $subtype = null): string
+{
+    $query = $slug === null ? [] : ['service' => $slug];
+    if ($subtype !== null) {
+        $query['subservice'] = $subtype;
+    }
+    return 'Book.php' . ($query ? '?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986) : '') . '#booking';
+}

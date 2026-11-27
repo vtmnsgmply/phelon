@@ -1,0 +1,10 @@
+/backend/.env
+/backend/legacy/vendor/
+/backend/legacy/uploads/
+/backend/legacy/**/*.log
+/backend/legacy/**/*debug.json
+/test/backend/.env
+/test/backend/legacy/vendor/
+/test/backend/legacy/uploads/
+/test/backend/legacy/**/*.log
+/test/backend/legacy/**/*debug.json
